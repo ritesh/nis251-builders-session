@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+    nis251-gtw-01:
+        image: "ggv2-nis251-image:latest"
+        environment:
+            - GGC_ROOT_PATH=/greengrass/v2
+            - AWS_REGION=eu-west-1
+            - PROVISION=true
+            - THING_NAME=gg-nis251-gtw07-01
+            - THING_GROUP_NAME=nis251-gtw
+            - TES_ROLE_NAME=GGV2TokenExchangeRole
+            - TES_ROLE_ALIAS_NAME=GGCoreTokenExchangeRoleAlias
+            - COMPONENT_DEFAULT_USER=ggc_user:ggc_group
+        volumes:
+            - /home/ec2-user/.aws/:/root/.aws/:ro
+    nis251-gtw-02:
+        image: "ggv2-nis251-image:latest"
+        environment:
+            - GGC_ROOT_PATH=/greengrass/v2
+            - AWS_REGION=eu-west-1
+            - PROVISION=true
+            - THING_NAME=gg-nis251-gtw07-02
+            - THING_GROUP_NAME=nis251-gtw
+            - TES_ROLE_NAME=GGV2TokenExchangeRole
+            - TES_ROLE_ALIAS_NAME=GGCoreTokenExchangeRoleAlias
+            - COMPONENT_DEFAULT_USER=ggc_user:ggc_group
+        volumes:
+            - /home/ec2-user/.aws/:/root/.aws/:ro
+    nis251-gtw-03:
+        image: "ggv2-nis251-image:latest"
+        environment:
+            - GGC_ROOT_PATH=/greengrass/v2
+            - AWS_REGION=eu-west-1
+            - PROVISION=true
+            - THING_NAME=gg-nis251-gtw07-03
+            - THING_GROUP_NAME=nis251-gtw
+            - TES_ROLE_NAME=GGV2TokenExchangeRole
+            - TES_ROLE_ALIAS_NAME=GGCoreTokenExchangeRoleAlias
+            - COMPONENT_DEFAULT_USER=ggc_user:ggc_group
+        volumes:
+            - /home/ec2-user/.aws/:/root/.aws/:ro
+    nis251-gtw-04:
+        image: "ggv2-nis251-image:latest"
+        environment:
+            - GGC_ROOT_PATH=/greengrass/v2
+            - AWS_REGION=eu-west-1
+            - PROVISION=true
+            - THING_NAME=gg-nis251-gtw07-04
+            - THING_GROUP_NAME=nis251-gtw
+            - TES_ROLE_NAME=GGV2TokenExchangeRole
+            - TES_ROLE_ALIAS_NAME=GGCoreTokenExchangeRoleAlias
+            - COMPONENT_DEFAULT_USER=ggc_user:ggc_group
+        volumes:
+            - /home/ec2-user/.aws/:/root/.aws/:ro

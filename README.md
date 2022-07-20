@@ -174,8 +174,6 @@ Copy and paste the JSON to you favorite JSON parser/viewer to check the metrics 
 
 ### 5. Use-case #1: Create a security profile
 
---TODO: cloudformation SNS resources
-
 Now that we have our simulated thing created and we have a development environment, we are ready to configure a behavior profile in device defender
 
 1. Navigate to the Security Profiles Section of the Device Defender Console: _AWS IoT -> Defend -> Detect -> Security Profiles_

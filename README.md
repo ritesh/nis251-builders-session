@@ -35,13 +35,13 @@ Author: emirayar@amazon.lu v1.0 20/07/2022
 - Go to AWS Cloud9 console (https://us-east-1.console.aws.amazon.com/cloud9/home/create) and create a new Cloud9 instance with following parameters:
 	- Instance type "t3.small (2 GiB RAM + 2 vCPU)" 
 	- Platform: "Amazon Linux 2"
-- Once the Cloud9 instance is ready, download the NIS251 artifacts package:
+- Once the Cloud9 instance is ready, download the NIS251 Builders' Session artifacts repo:
 ```
-wget https://nis251-workspace_1.0.0.zip
-unzip 
+cd ~/environment
+git clone https://github.com/eercanayar/nis251-builders-session
 ```
 
--   Run the following to download the resizer script and expand the storage of Cloud9 instance to 120GB
+- Run the following to download the resizer script and expand the storage of Cloud9 instance to 120GB
 ```
 chmod +x resize.sh
 ./resize.sh 120
@@ -65,7 +65,15 @@ We use a slightly modified version of public (and open source) AWS IoT Device De
 
 Public AWS IoT Device Defender component is deployed from the central AWS Greengrass component repository, but the modified version will be stored on your own account. 
 
---TODO: move to cloudfromation
+Download and unzip the modified component source code:
+```
+mkdir ~/environment/ggv2-components
+cd ~/environment/ggv2-components
+wget https://d2u1t255uj9pta.cloudfront.net/reinforce/artifacts/com.awsreinforce.DeviceDefenderCustom.zip
+unzip com.awsreinforce.DeviceDefenderCustom.zip
+rm com.awsreinforce.DeviceDefenderCustom.zip
+cd com.awsreinforce.DeviceDefenderCustom
+```
 
 Create an S3 bucket to store artifacts of your Greengrass components:
 ```
@@ -328,6 +336,8 @@ less greengrass.log
 docker exec -it CONTAINER_ID grep "stdout. Publishing metrics:" /greengrass/v2/logs/com.awsreinforce.DeviceDefenderCustom.log`
 #  inside the container
 grep "stdout. Publishing metrics:" /greengrass/v2/logs/com.awsreinforce.DeviceDefenderCustom.log`
+# To see a Greengrass container's GPU metric file contents
+docker exec -it 23834bb6026c bash -c "echo \"/var/gpu_load_fb = \$(cat /var/gpu_load_fb)\"; echo \"/var/gpu_inference_fb = \$(cat /var/gpu_inference_fb)\""
 ```
 
 ### Greengrass component update and deployment:

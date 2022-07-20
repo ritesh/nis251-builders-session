@@ -260,7 +260,8 @@ In each container, there are two files that represent GPU metrics as `/var/gpu_l
 
 Now, you'll update the values in those files to simulate the condition of a cryptocurrency miner is running on your GPU-powered device, along with your ML model. Increase of GPU load and ML model inference time will represent this situation as an abnormality.
 
-```docker exec -it CONTAINER_ID bash -c "echo 85 > /var/gpu_load_fb; echo 180 > /var/gpu_inference_fb"
+```
+docker exec -it CONTAINER_ID bash -c "echo 85 > /var/gpu_load_fb; echo 180 > /var/gpu_inference_fb"
 ```
 
 After running the update, you can check the published payloads for the device to see the increasing custom metrics in the payload, using the following command.

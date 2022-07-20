@@ -55,6 +55,13 @@ python3 -m pip install -U git+https://github.com/aws-greengrass/aws-greengrass-g
 pip3 install docker-compose
 ```
 
+- Go to AWS IAM console, create an IAM user with 
+	- username `gg_provisioning` 
+	- AWS access type: only Access key - Programmatic access
+	- Policy: `AdministratorAccess`
+	
+Get the `Access key ID` and `Secret access key` to place them into `nis251-builders-session/ggv2-provisioning-credentials/credentials` file and update your `region`. You'll delete this user and the `credentials` file after the provisioning done, because Greengrass uses certificates to authenticate itself.
+
 Now, we have our development environment ready!
 
 ### 2. Create custom Greengrass component for AWS IoT Device Defender
@@ -77,7 +84,8 @@ cd com.awsreinforce.DeviceDefenderCustom
 
 Create an S3 bucket to store artifacts of your Greengrass components:
 ```
-aws s3api create-bucket --bucket awsreinforce-ggv2-components-$RANDOM$RANDOM
+BUCKET_NAME=awsreinforce-ggv2-components-$RANDOM$RANDOM
+aws s3api create-bucket --bucket $BUCKET_NAME
 ```
 
 Copy the created S3 bucket name.
@@ -116,18 +124,31 @@ Check the **Cheat Sheet** section if you want to make a modification in the comp
 docker build -t ggv2-nis251-image .
 # Create greengrass containers
 docker-compose up --no-start
-# Start greengrass containers
-docker-compose start
+# Start the first container only
+docker start nis251-builders-session_nis251-gtw-01_1
 ```
 
-- Now you have 4 simulated Greengrass devices running on your Cloud9 instance.
-- It may take some time for their deployments and appearing 4 of them on the Greengrass console.
+- Now you have one simulated Greengrass devices running on your Cloud9 instance.
+- It may take some time for it's deployment and appearing on the Greengrass console.
 - You can run `docker ps` to check container statues.
-- You can run `docker logs CONTAINER_ID` to check particullar container's logs to see if everyting is fine.
-- You can go to _AWS IoT Greengrass console > Core devices_ section to see your created Greengrass devices 
+- You can run `docker logs CONTAINER_ID` to check the container's logs to see if everyting is fine.
+- You can go to _AWS IoT Greengrass console > Core devices_ section to see the created Greengrass device.
+- Once your first Greengrass devices are up and running, you can run the following to start all of them:
+    ```
+    docker-compose start
+    ```
+- Then, you can go to _AWS IoT Greengrass console > Core devices_ section to see your all created Greengrass devices.
 
---TODO: Greengrass role S3 allow
 
+Once your all Greengrass devices are up and running, delete `nis251-builders-session/ggv2-provisioning-credentials/credentials` file and the IAM user you've created at the beginning of the session.
+
+Also, run the following to allow each core device to download the component artifacts from S3.
+```
+cd ~/environment/nis251-builders-session
+echo "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"s3:GetObject\"],\"Resource\":\"arn:aws:s3:::$BUCKET_NAME\\/*\"}]}" > component-artifact-policy.json
+aws iam put-role-policy --role-name GGTokenExchangeRole --policy-name GGV2ComponentArtifactPolicy --policy-document file://component-artifact-policy.json
+
+```
 
 ### 4. Deploy components to the Greengrass simulated device fleet
 Now it's time to deploy some components to your newly created devices, including the custom/modified AWS IoT Device Defender component. All the devices are added into _nis251-gtw_ thing group. So, you'll create a deployment that targeted to the _nis251-gtw_ thing group. Thus; all the devices under this thing group will receive the deploylement.

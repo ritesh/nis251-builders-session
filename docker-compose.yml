@@ -7,49 +7,49 @@ services:
             - GGC_ROOT_PATH=/greengrass/v2
             - AWS_REGION=eu-west-1
             - PROVISION=true
-            - THING_NAME=gg-nis251-gtw07-01
+            - THING_NAME=gg-nis251-gtw08-01
             - THING_GROUP_NAME=nis251-gtw
             - TES_ROLE_NAME=GGV2TokenExchangeRole
-            - TES_ROLE_ALIAS_NAME=GGCoreTokenExchangeRoleAlias
+            - TES_ROLE_ALIAS_NAME=GGV2TokenExchangeRoleAlias
             - COMPONENT_DEFAULT_USER=ggc_user:ggc_group
         volumes:
-            - /home/ec2-user/.aws/:/root/.aws/:ro
+            - /home/ec2-user/environment/nis251-builders-session/ggv2-provisioning-credentials/:/root/.aws/:ro
     nis251-gtw-02:
         image: "ggv2-nis251-image:latest"
         environment:
             - GGC_ROOT_PATH=/greengrass/v2
             - AWS_REGION=eu-west-1
             - PROVISION=true
-            - THING_NAME=gg-nis251-gtw07-02
+            - THING_NAME=gg-nis251-gtw08-02
             - THING_GROUP_NAME=nis251-gtw
             - TES_ROLE_NAME=GGV2TokenExchangeRole
-            - TES_ROLE_ALIAS_NAME=GGCoreTokenExchangeRoleAlias
+            - TES_ROLE_ALIAS_NAME=GGV2TokenExchangeRoleAlias
             - COMPONENT_DEFAULT_USER=ggc_user:ggc_group
         volumes:
-            - /home/ec2-user/.aws/:/root/.aws/:ro
+            - /home/ec2-user/environment/nis251-builders-session/ggv2-provisioning-credentials/:/root/.aws/:ro
     nis251-gtw-03:
         image: "ggv2-nis251-image:latest"
         environment:
             - GGC_ROOT_PATH=/greengrass/v2
             - AWS_REGION=eu-west-1
             - PROVISION=true
-            - THING_NAME=gg-nis251-gtw07-03
+            - THING_NAME=gg-nis251-gtw08-03
             - THING_GROUP_NAME=nis251-gtw
             - TES_ROLE_NAME=GGV2TokenExchangeRole
-            - TES_ROLE_ALIAS_NAME=GGCoreTokenExchangeRoleAlias
+            - TES_ROLE_ALIAS_NAME=GGV2TokenExchangeRoleAlias
             - COMPONENT_DEFAULT_USER=ggc_user:ggc_group
         volumes:
-            - /home/ec2-user/.aws/:/root/.aws/:ro
+            - /home/ec2-user/environment/nis251-builders-session/ggv2-provisioning-credentials/:/root/.aws/:ro
     nis251-gtw-04:
         image: "ggv2-nis251-image:latest"
         environment:
             - GGC_ROOT_PATH=/greengrass/v2
             - AWS_REGION=eu-west-1
             - PROVISION=true
-            - THING_NAME=gg-nis251-gtw07-04
+            - THING_NAME=gg-nis251-gtw08-04
             - THING_GROUP_NAME=nis251-gtw
             - TES_ROLE_NAME=GGV2TokenExchangeRole
-            - TES_ROLE_ALIAS_NAME=GGCoreTokenExchangeRoleAlias
+            - TES_ROLE_ALIAS_NAME=GGV2TokenExchangeRoleAlias
             - COMPONENT_DEFAULT_USER=ggc_user:ggc_group
         volumes:
-            - /home/ec2-user/.aws/:/root/.aws/:ro
+            - /home/ec2-user/environment/nis251-builders-session/ggv2-provisioning-credentials/:/root/.aws/:ro

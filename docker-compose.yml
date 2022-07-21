@@ -5,7 +5,7 @@ services:
         image: "ggv2-nis251-image:latest"
         environment:
             - GGC_ROOT_PATH=/greengrass/v2
-            - AWS_REGION=eu-west-1
+            - AWS_REGION=us-east-1
             - PROVISION=true
             - THING_NAME=gg-nis251-gtw08-01
             - THING_GROUP_NAME=nis251-gtw
@@ -18,7 +18,7 @@ services:
         image: "ggv2-nis251-image:latest"
         environment:
             - GGC_ROOT_PATH=/greengrass/v2
-            - AWS_REGION=eu-west-1
+            - AWS_REGION=us-east-1
             - PROVISION=true
             - THING_NAME=gg-nis251-gtw08-02
             - THING_GROUP_NAME=nis251-gtw
@@ -31,7 +31,7 @@ services:
         image: "ggv2-nis251-image:latest"
         environment:
             - GGC_ROOT_PATH=/greengrass/v2
-            - AWS_REGION=eu-west-1
+            - AWS_REGION=us-east-1
             - PROVISION=true
             - THING_NAME=gg-nis251-gtw08-03
             - THING_GROUP_NAME=nis251-gtw
@@ -44,7 +44,7 @@ services:
         image: "ggv2-nis251-image:latest"
         environment:
             - GGC_ROOT_PATH=/greengrass/v2
-            - AWS_REGION=eu-west-1
+            - AWS_REGION=us-east-1
             - PROVISION=true
             - THING_NAME=gg-nis251-gtw08-04
             - THING_GROUP_NAME=nis251-gtw

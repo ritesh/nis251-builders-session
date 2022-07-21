@@ -43,6 +43,7 @@ git clone https://github.com/eercanayar/nis251-builders-session
 
 - Run the following to download the resizer script and expand the storage of Cloud9 instance to 120GB
 ```
+~/environment/nis251-builders-session
 chmod +x resize.sh
 ./resize.sh 120
 ```
@@ -82,32 +83,7 @@ rm com.awsreinforce.DeviceDefenderCustom.zip
 cd com.awsreinforce.DeviceDefenderCustom
 ```
 
-Create an S3 bucket to store artifacts of your Greengrass components:
-```
-BUCKET_NAME=awsreinforce-ggv2-components-$RANDOM$RANDOM
-aws s3api create-bucket --bucket $BUCKET_NAME
-```
-
-Copy the created S3 bucket name.
-
-Edit `gdk-config.json`  to replace the bucket name and the region.
-```
-...
-      "publish": {
-        "bucket": "aws-emirayar-resources-ggv2-2022",
-        "region": "eu-west-1"
-      }
-...
-```
-
-Edit `recipe.json` to replace the bucket name.
-```
-...
-"URI": "s3://aws-emirayar-resources-ggv2-2022/...
-...
-```
-
-Your modified AWS IoT Device Defender component is ready. Run the following to build and publish it:
+Run the following to build and publish it:
 ```
 gdk component build
 gdk component publish
@@ -120,6 +96,7 @@ Check the **Cheat Sheet** section if you want to make a modification in the comp
 ### 3. Build and run Greengrass simulated device fleet
 
 ```
+cd ~/environment/nis251-builders-session
 # Build the container
 docker build -t ggv2-nis251-image .
 # Create greengrass containers
@@ -144,10 +121,8 @@ Once your all Greengrass devices are up and running, delete `nis251-builders-ses
 
 Also, run the following to allow each core device to download the component artifacts from S3.
 ```
-cd ~/environment/nis251-builders-session
-echo "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"s3:GetObject\"],\"Resource\":\"arn:aws:s3:::$BUCKET_NAME\\/*\"}]}" > component-artifact-policy.json
-aws iam put-role-policy --role-name GGTokenExchangeRole --policy-name GGV2ComponentArtifactPolicy --policy-document file://component-artifact-policy.json
-
+echo "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Action\":[\"s3:GetObject\"],\"Resource\":\"arn:aws:s3:::awsreinforce-ggv2*\\/*\"}]}" > component-artifact-policy.json
+aws iam put-role-policy --role-name GGV2TokenExchangeRole --policy-name GGV2ComponentArtifactPolicy --policy-document file://component-artifact-policy.json
 ```
 
 ### 4. Deploy components to the Greengrass simulated device fleet
@@ -200,7 +175,7 @@ Choose one of your devices as the attack target and connect to it. Then run the 
 
 ```
 docker exec -it CONTAINER_ID /bin/bash
-ab -n 40000 https://eu-west-1.console.aws.amazon.com/
+ab -n 40000 https://us-east-1.console.aws.amazon.com/
 ```
 
 While the `ab` command is running the container, navigate to _AWS IoT Defender > Security Profiles_ to see the Alarms are generated for your device.

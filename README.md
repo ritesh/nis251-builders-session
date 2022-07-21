@@ -129,7 +129,7 @@ aws iam put-role-policy --role-name GGV2TokenExchangeRole --policy-name GGV2Comp
 Now it's time to deploy some components to your newly created devices, including the custom/modified AWS IoT Device Defender component. All the devices are added into _nis251-gtw_ thing group. So, you'll create a deployment that targeted to the _nis251-gtw_ thing group. Thus; all the devices under this thing group will receive the deploylement.
 
 - Go to _AWS IoT Greengrass console > Deployments_
-- Click crate, specify a deployment name
+- Click create, specify a deployment name
 - Choose the target name as `nis251-gtw`
 - On Step 2:
 	- Choose `com.awsreinforce.DeviceDefenderCustom` under _My components_
@@ -145,16 +145,16 @@ Now you have your Greengrass devices reporting device-side metrics to AWS IoT De
 docker exec -it CONTAINER_ID grep "stdout. Publishing metrics:" /greengrass/v2/logs/com.awsreinforce.DeviceDefenderCustom.log
 ```
 
-Copy and paste the JSON to you favorite JSON parser/viewer to check the metrics published from your devices.
+You can get `CONTAINER_ID`, by running `docker ps`. Copy and paste the output JSON to you favorite JSON parser/viewer to check the metrics published from your devices.
 
 ### 5. Use-case #1: Create a security profile
 
 Now that we have our simulated thing created and we have a development environment, we are ready to configure a behavior profile in device defender
 
-1. Navigate to the Security Profiles Section of the Device Defender Console: _AWS IoT -> Defend -> Detect -> Security Profiles_
-2. Click the "Create" button
-	Note: If you have no Security Profiles in your account, you will see a "Create your first security profile" button instead
-3. Delete all Cloud-side metrics for keeping the focus and add Device-side _Packets out_ metric.
+1. Navigate to the Security Profiles Section of the Device Defender Console: _AWS IoT -> Device Defender -> Detect -> Security Profiles_
+2. Click the "Create Security Profile" button. Select Create Rule-based anomaly Detect Profile. 
+	Note: If you have no Security Profiles in your account, you may see a "Create your first security profile" button instead
+3. Delete all Cloud-side metrics  for keeping the focus and add Device-side _Packets out_ metric.
 4. Name: "NormalNetworkTraffic"
 	Under Behaviors
 	Name: "PacketsOut"
@@ -256,7 +256,7 @@ def lambda_handler(event, context):
 14. Click the save button.
 
 
-### 9. Use-case #2: Run the crpytocurrency mining condition simulation
+### 9. Use-case #2: Run the cryptocurrency mining condition simulation
 
 In each container, there are two files that represent GPU metrics as `/var/gpu_load_fb` and `/var/gpu_inference_fb`; similar to other available system metrics like CPU temperature, load ...etc. Device Defender component is configured to read metric values from those files for each metric publish operation.
 
@@ -314,7 +314,8 @@ docker-compose down
 ```
 
 ### Useful Greengrass commands:
-**NOTE:** You need to run these in the particular devices' docker container. During this Builders' Session, we have all Greengrass clients are running in containers.
+
+**NOTE:** You need to run these in the particular devices' Docker container. During this Builder's Session, all GreenGrass clients are running in Docker containers
 
 ```
 # Restart a Greengrass device: you can simply restart the docker container
@@ -335,7 +336,7 @@ docker exec -it 23834bb6026c bash -c "echo \"/var/gpu_load_fb = \$(cat /var/gpu_
 ```
 
 ### Greengrass component update and deployment:
-If you've made a modification in the component source code and want to deploy your updates; firstly you need to change/increase the semantic version number in `gdk-config.json`
+If you've made a modification in the component source code and want to deploy your updates; you will need to change the semantic version number in `gdk-config.json`
 ```
 ...
  "version": "1.0.11",
@@ -356,5 +357,3 @@ Now your component is published. But your existing deployments still use the pre
 4. Choose your component and click _Configure component_
 5. Choose the _Component version_ using the dropdown menu and save
 6. Proceed to Deploy
-
-
